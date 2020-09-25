@@ -1,0 +1,75 @@
+:root {
+    //--cubic: cubic-bezier(0.65, 0, 0.35, 1);
+    --cubic: cubic-bezier(0.33, 1, 0.68, 1);
+    //cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+
+.header {
+    &__name {
+        opacity: 0;
+        animation: fadeIn .6s linear forwards;
+    }
+}
+
+
+.line {
+    &__wrapper {
+        display: inline-block;
+        overflow: hidden;
+        max-height: 76px;
+    }
+    &__inner {
+        display: inline-block;
+        transform: translateY(100%);
+        animation: slideIn 1s var(--cubic) forwards;
+    }
+}
+
+
+.header {
+    &__tagline {
+        .line__wrapper {
+            @for $i from 1 through 3 {
+                &:nth-child(3n + #{$i}) {
+                    .line__inner {
+                        animation-delay: $i / 8 + s;
+
+                        @media screen and (max-width: 768px) {
+                            animation-delay: 0.4 + $i / 8 + s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.header__descr {
+    opacity: 0;
+    animation: fadeIn .6s linear 1s forwards;
+}
+
+.gallery {
+    transform: translateY(200px);
+    opacity: 0;
+    animation: gallery 2s var(--cubic) forwards;
+}
+
+
+
+@keyframes slideIn {
+    from { transform: translateY(80%); }
+    to { transform: translateY(0%); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes gallery {
+    from { transform: translateY(200px); opacity: 0; }
+    to { transform: translateY(0px); opacity: 1; }
+}
